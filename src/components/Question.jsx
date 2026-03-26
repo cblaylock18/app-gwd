@@ -2,18 +2,18 @@ import { Text, View, StyleSheet } from 'react-native'
 import { COLORS } from '../../constants/COLORS';
 import { QUESTION_INFO } from '../../constants/QUESTION_INFO';
 
-export const Question = ({ question }) => {
+const Question = ({ question }) => {
   return (
     <View style={styles.parentContainer}>
       <View style={styles.infoContainer}>
-        <View style={styles.dateContainer}>
-          <Text style={styles.dateText}>{question.date}</Text>
-        </View>
         <View style={styles.categoryContainer}>
           <Text style={styles.categoryText}>{question.category}</Text>
         </View>
         <View style={styles.difficultyContainer}>
           <Text style={styles.difficultyText}>{`Question ${question.difficulty} of 3: ${QUESTION_INFO.DIFFICULTY[question.difficulty]}`}</Text>
+          <View style={styles.pointsContainer}>
+            <Text style={styles.pointsText}>{`${4 - question.difficulty} points`}</Text>
+          </View>
         </View>
       </View>
       <View style={styles.questionContainer}>
@@ -22,6 +22,8 @@ export const Question = ({ question }) => {
     </View>
   )
 }
+
+export default Question;
 
 const styles = StyleSheet.create({
   parentContainer: {
@@ -34,13 +36,6 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 20,
     marginBottom: 20,
-  },
-  dateContainer: {
-    alignSelf: 'flex-start',
-    marginBottom: 40
-  },
-  dateText: {
-    fontWeight: "bold"
   },
   categoryContainer: {
     alignSelf: 'center',
@@ -56,6 +51,13 @@ const styles = StyleSheet.create({
   },
   difficultyText: {
     fontStyle: 'italic',
+  },
+  pointsContainer: {
+    alignSelf: 'center',
+  },
+  pointsText: {
+    fontWeight: 'bold',
+    fontSize: 14
   },
   questionContainer: {
     flexGrow: 1,

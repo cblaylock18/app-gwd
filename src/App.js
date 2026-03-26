@@ -1,22 +1,42 @@
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { Ionicons as Icon } from '@expo/vector-icons';
 import Home from './screens/Home';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import History from './screens/History';
+import { COLORS } from '../constants/COLORS';
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+
+function MyTabs() {
+  const insets = useSafeAreaInsets();
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Home />
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <>
+      <Tab.Navigator screenOptions={{
+        tabBarActiveBackgroundColor: COLORS.primaryYellow, tabBarActiveTintColor: COLORS.black, tabBarInactiveTintColor: COLORS.grey, tabBarInactiveBackgroundColor: COLORS.lightYellow, headerTintColor: COLORS.white, headerStyle: {
+          backgroundColor: COLORS.black
+        }, tabBarStyle: {
+          backgroundColor: COLORS.primaryYellow,
+          paddingBottom: 0,
+          marginBottom: insets.bottom
+        },
+      }}>
+        <Tab.Screen name="Today's Game" component={Home} options={{ tabBarIcon: ({ focused }) => <Icon name={focused ? "school" : "school-outline"} size={24} color={focused ? COLORS.black : COLORS.grey} /> }} />
+        <Tab.Screen name="History" component={History} options={{ title: "History", tabBarIcon: ({ focused }) => <Icon name={focused ? "calendar-clear" : "calendar-clear-outline"} size={24} color={focused ? COLORS.black : COLORS.grey} /> }} />
+      </Tab.Navigator >
+      <StatusBar style="light" />
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 4
-  },
-});
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <MyTabs />
+      </NavigationContainer>
+    </SafeAreaProvider>
+  );
+}
