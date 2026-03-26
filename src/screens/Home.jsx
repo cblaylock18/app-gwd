@@ -1,5 +1,5 @@
 import { useState, useLayoutEffect } from 'react';
-import { ScrollView, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { useNavigation } from '@react-navigation/native';
 import Question from '../components/Question'
@@ -11,35 +11,65 @@ import { COLORS } from '../../constants/COLORS';
 const Home = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
+  const [value, setValue] = useState("");
+  const [totalPoints, setTotalPoints] = useState(0);
 
   const navigation = useNavigation();
+  const currentRound = DATA[currentRoundIndex];
+  const currentQuestion = currentRound.questions[currentQuestionIndex];
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: `Play ${DATA[0].date}`, // TO UPDATE
+      headerTitle: `Play ${DATA[0].date}`,
     });
   }, [navigation]);
 
+  const showNextRoundScreen = (roundIndex, won) => {
+    // TO UPDATE
+  }
+
+  const showEndScreen = () => {
+    // TO UPDATE
+  }
+
+  const handleSubmit = () => {
+    const answerIsRight = value.trim().toLowerCase() === currentRound.answer.toLowerCase();
+
+    if (answerIsRight) {
+      setTotalPoints((prev) => prev + (4 - currentQuestion.difficulty));
+      if (currentRoundIndex < DATA.length - 1) {
+        setCurrentRoundIndex((prev) => prev + 1);
+        setCurrentQuestionIndex(0);
+        showNextRoundScreen(currentRoundIndex, true);
+      } else {
+        showEndScreen();
+      }
+    } else {
+      if (currentQuestionIndex < currentRound.questions.length - 1) {
+        setCurrentQuestionIndex((prev) => prev + 1);
+      } else {
+        if (currentRoundIndex < DATA.length - 1) {
+          setCurrentRoundIndex((prev) => prev + 1);
+          setCurrentQuestionIndex(0);
+        }
+        showNextRoundScreen(currentRoundIndex, false);
+      }
+    }
+
+    setValue("");
+  }
+
   const renderButton = () => {
+    const title = value.length === 0 ? "Skip" : "Submit";
     return (
-      <Button title="Submit" onPress={() => setCurrentQuestionIndex((prev) => prev + 1)} />
+      <Button title={title} onPress={handleSubmit} />
     )
   }
 
-
-  // what do i want this to do?
-  // display the first question
-  // display a text input
-  // on submit, check if the answer matches
-  // if yes, display all three questions and you got it right, and points, and next button
-  // track total points
-  // if no, display this question and the next question with a text input
-  // continue until last question, then if wrong, display better luck and next button
-
   return (
-    <KeyboardAwareScrollView style={styles.container}>
-      {<Question question={DATA[currentQuestionIndex]} />}
-      <Input placeholder="Enter your answer here" />
+    <KeyboardAwareScrollView style={styles.container} keyboardShouldPersistTaps='handled' bottomOffset={100}>
+      <Question question={currentQuestion} category={currentRound.category} />
+      <Input placeholder="Enter your answer here" value={value} onChange={setValue} />
       {renderButton()}
     </KeyboardAwareScrollView>
   )

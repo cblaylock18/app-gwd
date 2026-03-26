@@ -1,9 +1,9 @@
-import { View, Text, TextInput } from 'react-native'
+import { View, TextInput, StyleSheet } from 'react-native';
+import { COLORS } from '../../../constants/COLORS';
 
-const Input = ({ title, placeholder, onChange, value, ...props }) => {
+const Input = ({ placeholder, onChange, value, ...props }) => {
   return (
-    <View>
-      {title && <Text>{title}</Text>}
+    <View style={styles.inputContainer}>
       <TextInput
         placeholder={placeholder}
         onChangeText={onChange}
@@ -15,3 +15,14 @@ const Input = ({ title, placeholder, onChange, value, ...props }) => {
 }
 
 export default Input;
+
+const styles = StyleSheet.create({
+  inputContainer: {
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 5,
+    padding: 10,
+    margin: 10,
+    backgroundColor: COLORS.lightGrey
+  }
+})

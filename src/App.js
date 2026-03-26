@@ -6,6 +6,7 @@ import { Ionicons as Icon } from '@expo/vector-icons';
 import Home from './screens/Home';
 import History from './screens/History';
 import { COLORS } from '../constants/COLORS';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,7 +36,9 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <MyTabs />
+        <KeyboardProvider>
+          <MyTabs />
+        </KeyboardProvider>
       </NavigationContainer>
     </SafeAreaProvider>
   );

@@ -2,12 +2,12 @@ import { Text, View, StyleSheet } from 'react-native'
 import { COLORS } from '../../constants/COLORS';
 import { QUESTION_INFO } from '../../constants/QUESTION_INFO';
 
-const Question = ({ question }) => {
+const Question = ({ question, category }) => {
   return (
     <View style={styles.parentContainer}>
       <View style={styles.infoContainer}>
         <View style={styles.categoryContainer}>
-          <Text style={styles.categoryText}>{question.category}</Text>
+          <Text style={styles.categoryText}>{category}</Text>  {/* changed */}
         </View>
         <View style={styles.difficultyContainer}>
           <Text style={styles.difficultyText}>{`Question ${question.difficulty} of 3: ${QUESTION_INFO.DIFFICULTY[question.difficulty]}`}</Text>

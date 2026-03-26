@@ -1,137 +1,107 @@
 [
   {
-    "id": 843,
-    "date": "2026-03-25",
+    "answer_id": 4211,
     "category": "Social Sciences",
     "answer": "English Channel",
     "sort_order": 0,
-    "question": "You'll find the islands of Sark and Herm in what body of water?",
-    "difficulty": 1
+    "date": "2026-03-25",
+    "questions": [
+      {
+        "question": "You'll find the islands of Sark and Herm in what body of water?",
+        "difficulty": 1
+      },
+      {
+        "question": "Despite a nasty jellyfish sting, in 1875 Matthew Webb became the first person to swim what body of water without a buoyant rubber suit?",
+        "difficulty": 2
+      },
+      {
+        "question": "The Chunnel is called the Chunnel because it's a tunnel that goes under what narrow strip of water?",
+        "difficulty": 3
+      }
+    ]
   },
   {
-    "id": 843,
-    "date": "2026-03-25",
-    "category": "Social Sciences",
-    "answer": "English Channel",
-    "sort_order": 0,
-    "question": "Despite a nasty jellyfish sting, in 1875 Matthew Webb became the first person to swim what body of water without a buoyant rubber suit?",
-    "difficulty": 2
-  },
-  {
-    "id": 843,
-    "date": "2026-03-25",
-    "category": "Social Sciences",
-    "answer": "English Channel",
-    "sort_order": 0,
-    "question": "The Chunnel is called the Chunnel because it's a tunnel that goes under what narrow strip of water?",
-    "difficulty": 3
-  },
-  {
-    "id": 843,
-    "date": "2026-03-25",
+    "answer_id": 4212,
     "category": "Entertainment",
     "answer": "Yoda",
     "sort_order": 1,
-    "question": "In early drafts, \"Minch\" was the first name of what iconic film character who was introduced in 1980?",
-    "difficulty": 1
+    "date": "2026-03-25",
+    "questions": [
+      {
+        "question": "In early drafts, \"Minch\" was the first name of what iconic film character who was introduced in 1980?",
+        "difficulty": 1
+      },
+      {
+        "question": "The lead ronin from \"Seven Samurai\" was the inspiration for what puppet voiced by Frank Oz?",
+        "difficulty": 2
+      },
+      {
+        "question": "Speaking like this Star Wars character, we are. On Dagobah, he lived. Tiresome, this is.",
+        "difficulty": 3
+      }
+    ]
   },
   {
-    "id": 843,
-    "date": "2026-03-25",
-    "category": "Entertainment",
-    "answer": "Yoda",
-    "sort_order": 1,
-    "question": "The lead ronin from \"Seven Samurai\" was the inspiration for what puppet voiced by Frank Oz?",
-    "difficulty": 2
-  },
-  {
-    "id": 843,
-    "date": "2026-03-25",
-    "category": "Entertainment",
-    "answer": "Yoda",
-    "sort_order": 1,
-    "question": "Speaking like this Star Wars character, we are. On Dagobah, he lived. Tiresome, this is.",
-    "difficulty": 3
-  },
-  {
-    "id": 843,
-    "date": "2026-03-25",
+    "answer_id": 4213,
     "category": "Arts & Culture",
     "answer": "Middle finger",
     "sort_order": 2,
-    "question": "In American Sign Language, the sign for \"H\" involves extending the index and what other finger?",
-    "difficulty": 1
+    "date": "2026-03-25",
+    "questions": [
+      {
+        "question": "In American Sign Language, the sign for \"H\" involves extending the index and what other finger?",
+        "difficulty": 1
+      },
+      {
+        "question": "A museum in Florence Italy owns what finger taken from the legendary scientist Galileo?",
+        "difficulty": 2
+      },
+      {
+        "question": "An 1886 photo of hall of fame pitcher Old Hoss Radbourne is the first known picture of somebody insultingly raising what finger?",
+        "difficulty": 3
+      }
+    ]
   },
   {
-    "id": 843,
-    "date": "2026-03-25",
-    "category": "Arts & Culture",
-    "answer": "Middle finger",
-    "sort_order": 2,
-    "question": "A museum in Florence Italy owns what finger taken from the legendary scientist Galileo?",
-    "difficulty": 2
-  },
-  {
-    "id": 843,
-    "date": "2026-03-25",
-    "category": "Arts & Culture",
-    "answer": "Middle finger",
-    "sort_order": 2,
-    "question": "An 1886 photo of hall of fame pitcher Old Hoss Radbourne is the first known picture of somebody insultingly raising what finger?",
-    "difficulty": 3
-  },
-  {
-    "id": 843,
-    "date": "2026-03-25",
+    "answer_id": 4214,
     "category": "Consumer Stuff",
     "answer": "Cardigan",
     "sort_order": 3,
-    "question": "Known for leading the \"Charge of the Light Brigade,\" James Brudenell is the namesake of what garment?",
-    "difficulty": 1
+    "date": "2026-03-25",
+    "questions": [
+      {
+        "question": "Known for leading the \"Charge of the Light Brigade,\" James Brudenell is the namesake of what garment?",
+        "difficulty": 1
+      },
+      {
+        "question": "The Taylor Swift album \"Folklore\" features what song about teenage love that's named for a seasonal piece of clothing?",
+        "difficulty": 2
+      },
+      {
+        "question": "Hand-knit by his mom, Mr. Rogers is known for wearing what type of light coat that unlike a sweater has buttons in the front?",
+        "difficulty": 3
+      }
+    ]
   },
   {
-    "id": 843,
-    "date": "2026-03-25",
-    "category": "Consumer Stuff",
-    "answer": "Cardigan",
-    "sort_order": 3,
-    "question": "The Taylor Swift album \"Folklore\" features what song about teenage love that's named for a seasonal piece of clothing?",
-    "difficulty": 2
-  },
-  {
-    "id": 843,
-    "date": "2026-03-25",
-    "category": "Consumer Stuff",
-    "answer": "Cardigan",
-    "sort_order": 3,
-    "question": "Hand-knit by his mom, Mr. Rogers is known for wearing what type of light coat that unlike a sweater has buttons in the front?",
-    "difficulty": 3
-  },
-  {
-    "id": 843,
-    "date": "2026-03-25",
+    "answer_id": 4215,
     "category": "Science & Nature",
     "answer": "Radon",
     "sort_order": 4,
-    "question": "Ernest Rutherford has a chemical element named after him, partly because he himself discovered what gaseous element in 1899?",
-    "difficulty": 1
-  },
-  {
-    "id": 843,
     "date": "2026-03-25",
-    "category": "Science & Nature",
-    "answer": "Radon",
-    "sort_order": 4,
-    "question": "Besides smoking tobacco, naturally, what 86th element is the most common cause of lung cancer?",
-    "difficulty": 2
-  },
-  {
-    "id": 843,
-    "date": "2026-03-25",
-    "category": "Science & Nature",
-    "answer": "Radon",
-    "sort_order": 4,
-    "question": "The EPA suggests letting a licensed professional test your basement for what toxic noble gas that's totally not the same as radium?",
-    "difficulty": 3
+    "questions": [
+      {
+        "question": "Ernest Rutherford has a chemical element named after him, partly because he himself discovered what gaseous element in 1899?",
+        "difficulty": 1
+      },
+      {
+        "question": "Besides smoking tobacco, naturally, what 86th element is the most common cause of lung cancer?",
+        "difficulty": 2
+      },
+      {
+        "question": "The EPA suggests letting a licensed professional test your basement for what toxic noble gas that's totally not the same as radium?",
+        "difficulty": 3
+      }
+    ]
   }
 ]
