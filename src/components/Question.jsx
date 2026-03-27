@@ -1,14 +1,16 @@
 import { Text, View, StyleSheet } from 'react-native'
-import { COLORS } from '../../constants/COLORS';
 import { QUESTION_INFO } from '../../constants/QUESTION_INFO';
+import { COLORS } from '../../constants/COLORS';
 
-const Question = ({ question, category }) => {
+const Question = ({ question, category, size }) => {
   return (
     <View style={styles.parentContainer}>
       <View style={styles.infoContainer}>
-        <View style={styles.categoryContainer}>
-          <Text style={styles.categoryText}>{category}</Text>  {/* changed */}
-        </View>
+        {category && (
+          <View style={styles.categoryContainer}>
+            <Text style={styles.categoryText}>{category}</Text>
+          </View>
+        )}
         <View style={styles.difficultyContainer}>
           <Text style={styles.difficultyText}>{`Question ${question.difficulty} of 3: ${QUESTION_INFO.DIFFICULTY[question.difficulty]}`}</Text>
           <View style={styles.pointsContainer}>
@@ -42,8 +44,10 @@ const styles = StyleSheet.create({
 
   },
   categoryText: {
-    fontWeight: "bold",
-    fontSize: 26,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: COLORS.grey,
+    textDecorationLine: 'underline'
   },
   difficultyContainer: {
     alignSelf: 'center',

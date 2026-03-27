@@ -6,4 +6,5 @@ export const COLORS = {
   black: '#000000',
   white: '#ffffff',
   mainBackground: '#ffe0bc',
+  primaryOrange: '#bd4800',
 }

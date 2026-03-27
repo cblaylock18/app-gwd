@@ -13,7 +13,7 @@ export default Button;
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: COLORS.primaryYellow,
+    backgroundColor: COLORS.primaryOrange,
     padding: 10,
     margin: 10,
     borderRadius: 5,
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonText: {
-    color: COLORS.black,
+    color: COLORS.white,
     fontSize: 16,
     fontWeight: 'bold',
   },
