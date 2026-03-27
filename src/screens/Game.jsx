@@ -1,5 +1,5 @@
-import { useState, useLayoutEffect } from 'react';
-import { Text, ScrollView, StyleSheet } from 'react-native'
+import { useState, useLayoutEffect, useEffect } from 'react';
+import { Text, View, ScrollView, StyleSheet } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Question from '../components/Question'
@@ -7,10 +7,16 @@ import RoundSummary from '../components/RoundSummary';
 import EndScreen from '../components/EndScreen';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import DATA from '../example/data.json'
+import { fetchGameData } from '../services/async';
 import { COLORS } from '../../constants/COLORS';
 
+// get today's date in YYYY-MM-DD format for maxDate of calendar
+const d = new Date();
+const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+
 const Game = () => {
+  const [gameData, setGameData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
   const [value, setValue] = useState("");
@@ -18,13 +24,24 @@ const Game = () => {
   const [roundResult, setRoundResult] = useState(null); // { roundIndex, won, pointsEarned }
   const [showEndScreen, setShowEndScreen] = useState(false);
 
-  // grab current round and question based on state
-  const currentRound = DATA[currentRoundIndex];
-  const currentQuestion = currentRound.questions[currentQuestionIndex];
-
   // grab the date param if coming from history, otherwise default to today's game data
   const route = useRoute();
-  const date = route.params?.date ?? DATA[0].date; // falls back to today's data
+
+  const date = route.params?.date ?? today; // falls back to today's data
+
+  useEffect(() => {
+    const loadGame = async () => {
+      try {
+        const gameData = await fetchGameData(date);
+        setGameData(gameData);
+        setLoading(false);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setLoading(false);
+      }
+    }
+    loadGame();
+  }, [date]);
 
   // Set up header with round and date info
   const navigation = useNavigation();
@@ -32,6 +49,8 @@ const Game = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: '',
+      headerBackVisible: false,
+      gestureEnabled: false,
       headerLeft: () => (
         <Text style={{ fontSize: 18, fontWeight: 'bold', color: COLORS.white, paddingLeft: 10 }}>
           Round {currentRoundIndex + 1} of 5
@@ -43,13 +62,13 @@ const Game = () => {
         </Text>
       ),
     });
-  }, [navigation, currentRoundIndex]);
+  }, [navigation, currentRoundIndex, date]);
 
   const renderNextRoundScreen = () => {
     const { roundIndex, won, pointsEarned } = roundResult;
     return (
       <RoundSummary
-        round={DATA[roundIndex]}
+        round={gameData?.[roundIndex]}
         won={won}
         pointsEarned={pointsEarned}
         totalPoints={totalPoints}
@@ -62,7 +81,7 @@ const Game = () => {
     const { roundIndex, won, pointsEarned } = roundResult;
     return (
       <EndScreen
-        round={DATA[roundIndex]}
+        round={gameData?.[roundIndex]}
         won={won}
         pointsEarned={pointsEarned}
         totalPoints={totalPoints}
@@ -77,7 +96,7 @@ const Game = () => {
     if (answerIsRight) {
       // if answer is right, add points and move to next round (or end screen if it was the last round)
       setTotalPoints((prev) => prev + pointsEarned);
-      if (currentRoundIndex < DATA.length - 1) {
+      if (currentRoundIndex < (gameData?.length) - 1) {
         setRoundResult({ roundIndex: currentRoundIndex, won: true, pointsEarned });
       } else {
         setRoundResult({ roundIndex: currentRoundIndex, won: true, pointsEarned });
@@ -87,11 +106,11 @@ const Game = () => {
     // answer was wrong
     else {
       // if there are more questions in the round, move to the next question
-      if (currentQuestionIndex < currentRound.questions.length - 1) {
+      if (currentQuestionIndex < (currentRound.questions.length) - 1) {
         setCurrentQuestionIndex((prev) => prev + 1);
       } else {
         // if there are no more questions, move to the next round (or end screen if it was the last round)
-        if (currentRoundIndex < DATA.length - 1) {
+        if (currentRoundIndex < (gameData?.length) - 1) {
           setRoundResult({ roundIndex: currentRoundIndex, won: false, pointsEarned: 0 });
         } else {
           setRoundResult({ roundIndex: currentRoundIndex, won: false, pointsEarned: 0 });
@@ -110,6 +129,18 @@ const Game = () => {
     setCurrentQuestionIndex(0);
     setValue("");
   }
+
+  if (loading) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+        <Text style={{ fontSize: 18, color: COLORS.grey }}>Loading game...</Text>
+      </View>
+    );
+  }
+
+  // grab current round and question based on state
+  const currentRound = gameData?.[currentRoundIndex];
+  const currentQuestion = currentRound.questions[currentQuestionIndex];
 
   if (showEndScreen) {
     return (

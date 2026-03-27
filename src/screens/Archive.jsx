@@ -1,6 +1,7 @@
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { Calendar } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
+import { COLORS } from '../../constants/COLORS';
 
 const Archive = () => {
   const navigation = useNavigation();
@@ -10,7 +11,7 @@ const Archive = () => {
   const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 
   return (
-    <View>
+    <View style={styles.container}>
       <Calendar
         minDate='2023-12-04'
         maxDate={today}
@@ -19,10 +20,29 @@ const Archive = () => {
           navigation.navigate('Game', { date: day.dateString });
         }}
       />
-      <Text>Select a Date to Play That Game</Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Select a Date to Play That Day's Game</Text>
+      </View>
 
     </View>
   )
 }
 
-export default Archive
+export default Archive;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  textContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    backgroundColor: COLORS.lightGrey
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingHorizontal: 10
+  }
+})
