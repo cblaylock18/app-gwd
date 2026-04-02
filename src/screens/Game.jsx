@@ -17,6 +17,7 @@ const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-$
 const Game = () => {
   const [gameData, setGameData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
   const [value, setValue] = useState("");
@@ -33,11 +34,13 @@ const Game = () => {
     const loadGame = async () => {
       try {
         const gameData = await fetchGameData(date);
+        console.log("Fetched game data:", gameData, date);
         setGameData(gameData);
         setLoading(false);
       } catch (err) {
         console.error("Fetch error:", err);
         setLoading(false);
+        setError(true)
       }
     }
     loadGame();
@@ -134,6 +137,14 @@ const Game = () => {
     return (
       <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
         <Text style={{ fontSize: 18, color: COLORS.grey }}>Loading game...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+        <Text style={{ fontSize: 18, color: COLORS.grey }}>Error loading game data.</Text>
       </View>
     );
   }

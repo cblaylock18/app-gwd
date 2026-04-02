@@ -1,8 +1,10 @@
 {
   "expo": {
-    "name": "app-gwd",
+    "name": "Quiz Game",
     "slug": "app-gwd",
     "version": "1.0.0",
+    "scheme": "quiz-game",
+    "bundleIdentifier": "com.chris.quizgame",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -11,19 +13,20 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffd240"
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.appgwd"
+      "bundleIdentifier": "com.chris.quizgame"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffd240"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.appgwd"
+      "package": "com.chris.quizgame",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
