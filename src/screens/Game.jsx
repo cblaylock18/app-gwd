@@ -7,7 +7,7 @@ import RoundSummary from '../components/RoundSummary';
 import EndScreen from '../components/EndScreen';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import { fetchGameData } from '../services/async';
+import { fetchGameData, checkAnswer } from '../services/async';
 import { COLORS } from '../../constants/COLORS';
 
 // get today's date in YYYY-MM-DD format for maxDate of calendar
@@ -24,6 +24,7 @@ const Game = () => {
   const [totalPoints, setTotalPoints] = useState(0);
   const [roundResult, setRoundResult] = useState(null); // { roundIndex, won, pointsEarned }
   const [showEndScreen, setShowEndScreen] = useState(false);
+  const [checking, setChecking] = useState(false);
 
   // grab the date param if coming from history, otherwise default to today's game data
   const route = useRoute();
@@ -34,7 +35,6 @@ const Game = () => {
     const loadGame = async () => {
       try {
         const gameData = await fetchGameData(date);
-        console.log("Fetched game data:", gameData, date);
         setGameData(gameData);
         setLoading(false);
       } catch (err) {
@@ -92,39 +92,46 @@ const Game = () => {
     );
   }
 
-  const handleSubmit = () => {
-    const answerIsRight = value.trim().toLowerCase() === currentRound.answer.toLowerCase();
-    const pointsEarned = answerIsRight ? 4 - currentQuestion.difficulty : 0;
-
-    if (answerIsRight) {
-      // if answer is right, add points and move to next round (or end screen if it was the last round)
-      setTotalPoints((prev) => prev + pointsEarned);
-      if (currentRoundIndex < (gameData?.length) - 1) {
-        setRoundResult({ roundIndex: currentRoundIndex, won: true, pointsEarned });
-      } else {
-        setRoundResult({ roundIndex: currentRoundIndex, won: true, pointsEarned });
-        setShowEndScreen(true);
-      }
-    }
-    // answer was wrong
-    else {
-      // if there are more questions in the round, move to the next question
-      if (currentQuestionIndex < (currentRound.questions.length) - 1) {
+  const handleSubmit = async () => {
+    if (value.trim() === '') {
+      // Skip — just move to next question or round
+      if (currentQuestionIndex < currentRound.questions.length - 1) {
         setCurrentQuestionIndex((prev) => prev + 1);
       } else {
-        // if there are no more questions, move to the next round (or end screen if it was the last round)
-        if (currentRoundIndex < (gameData?.length) - 1) {
+        if (currentRoundIndex < gameData.length - 1) {
           setRoundResult({ roundIndex: currentRoundIndex, won: false, pointsEarned: 0 });
         } else {
           setRoundResult({ roundIndex: currentRoundIndex, won: false, pointsEarned: 0 });
           setShowEndScreen(true);
         }
       }
+      return;
     }
 
-    // reset input for next question or round
-    setValue("");
-  }
+    setChecking(true);
+    try {
+      const answerIsRight = await checkAnswer(currentQuestion.question_id, value.trim());
+      const pointsEarned = answerIsRight ? 4 - currentQuestion.difficulty : 0;
+
+      if (answerIsRight) {
+        setTotalPoints((prev) => prev + pointsEarned);
+        setRoundResult({ roundIndex: currentRoundIndex, won: true, pointsEarned });
+        if (currentRoundIndex >= gameData.length - 1) setShowEndScreen(true);
+      } else {
+        if (currentQuestionIndex < currentRound.questions.length - 1) {
+          setCurrentQuestionIndex((prev) => prev + 1);
+        } else {
+          setRoundResult({ roundIndex: currentRoundIndex, won: false, pointsEarned: 0 });
+          if (currentRoundIndex >= gameData.length - 1) setShowEndScreen(true);
+        }
+      }
+    } catch (err) {
+      console.error('Answer check failed:', err);
+    } finally {
+      setChecking(false);
+      setValue('');
+    }
+  };
 
   const handleNextRound = () => {
     setRoundResult(null);
@@ -173,7 +180,11 @@ const Game = () => {
     <KeyboardAwareScrollView style={styles.container} keyboardShouldPersistTaps='handled' bottomOffset={100}>
       <Question question={currentQuestion} category={currentRound.category} />
       <Input placeholder="Enter your answer here" value={value} onChange={setValue} />
-      <Button title={value.length === 0 ? "Skip" : "Submit"} onPress={handleSubmit} />
+      <Button
+        title={checking ? "Checking..." : value.length === 0 ? "Skip" : "Submit"}
+        onPress={handleSubmit}
+        disabled={checking}
+      />
     </KeyboardAwareScrollView>
   )
 }

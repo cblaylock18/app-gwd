@@ -8,19 +8,22 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_BACKEND_URL": "http://192.168.1.114:8080"
+        "EXPO_PUBLIC_BACKEND_URL": "http://192.168.1.114:8080",
+        "APP_VARIANT": "development"
       }
     },
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_BACKEND_URL": "https://api-369920917738.us-west1.run.app"
+        "EXPO_PUBLIC_BACKEND_URL": "https://api-369920917738.us-west1.run.app",
+        "APP_VARIANT": "preview"
       }
     },
     "production": {
       "autoIncrement": true,
       "env": {
-        "EXPO_PUBLIC_BACKEND_URL": "https://api-369920917738.us-west1.run.app"
+        "EXPO_PUBLIC_BACKEND_URL": "https://api-369920917738.us-west1.run.app",
+        "APP_VARIANT": "production"
       }
     }
   },
