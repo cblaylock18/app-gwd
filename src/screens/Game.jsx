@@ -185,6 +185,7 @@ const Game = () => {
         onPress={handleSubmit}
         disabled={checking}
       />
+      <Text>Trivia questions sourced from Thrice by Geeks Who Drink. This is a personal/educational project with no commercial affiliation or intent. Visit their webiste to support their work https://thrice.geekswhodrink.com</Text>
     </KeyboardAwareScrollView>
   )
 }
